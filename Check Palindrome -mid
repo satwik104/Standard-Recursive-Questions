@@ -1,0 +1,42 @@
+Check whether a given String S is a palindrome using recursion. Return true or false.
+Input Format :
+String S
+Output Format :
+'true' or 'false'
+Constraints :
+0 <= |S| <= 1000
+where |S| represents length of string S.
+Sample Input 1 :
+racecar
+Sample Output 1:
+true
+Sample Input 2 :
+ninja
+Sample Output 2:
+false
+*************************************code*********************************
+#include <cstring>
+bool helping_func(char input[],int start, int end)
+{
+    int n=strlen(input);
+    //base case
+    if(start >= end)
+        return true;
+
+    //small calc case for the first and last char comparison
+    if(input[start] != input[end])
+        return false;
+    
+    //recursive call
+    bool small_ans = helping_func(input,start+1,end-1);
+        return small_ans;
+}
+
+bool checkPalindrome(char input[]) {
+    // Write your code here
+    int n=strlen(input);
+    bool ans = helping_func(input,0, n-1);
+    return ans;
+}
+
+
