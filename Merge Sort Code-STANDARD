@@ -1,0 +1,67 @@
+Sort an array A using Merge Sort.
+Change in the input array itself. So no need to return or print anything.
+Input format :
+Line 1 : Integer n i.e. Array size
+Line 2 : Array elements (separated by space)
+Output format :
+Array elements in increasing order (separated by space)
+Constraints :
+1 <= n <= 10^3
+Sample Input 1 :
+6 
+2 6 8 5 4 3
+Sample Output 1 :
+2 3 4 5 6 8
+Sample Input 2 :
+5
+2 1 5 2 3
+Sample Output 2 :
+1 2 2 3 5 
+*****************************CODE*************************
+void help(int input[], int,int);
+void merge(int input[],int,int,int);
+
+void mergeSort(int input[], int size)
+{
+    help(input,0,size-1);   
+}
+
+void help(int input[],int si, int ei)//start and end indexes
+{
+    if(si>=ei)//base case
+      return;
+    int mid =(si+ei)/2;//taking out mid of the array
+    help(input,si,mid);//Recursive call for sorting first part
+    help(input,mid+1,ei);//Recursive call for sorting second part
+    merge(input,si,ei,mid);//calling our function to sort and then merge
+}
+
+void merge(int input[],int si,int ei,int mid)
+{
+    int temp_array[ei+1];//think for values of si other then 0
+    int i=si,j=mid+1,k=0;
+    while(i<=mid && j<=ei)//this is the code from "merge two sorted arrays"
+    {
+        if(input[i]<input[j])
+            temp_array[k++]=input[i++];
+        else
+            temp_array[k++]=input[j++];
+    }
+    while(i<=mid)//shifting remaining part of the first half...if any
+    {
+        temp_array[k++]=input[i++];//here if it run then k becomes
+                                   //1 more then the size of input so  
+                                   //we take i<k while copying.
+    }
+    while(j<=ei)//shifting remaining part of the secont half...if any
+    {
+        temp_array[k++]=input[j++];//here if it run then k becomes
+                                   //1 more then the size of input so  
+                                   //we take i<k while copying.
+    }
+    int a=si;//because input array's starting is si not 0
+    for(i=0; i<k; i++)//now copying back to orignal array
+    {
+        input[a++]=temp_array[i];
+    }
+}
