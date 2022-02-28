@@ -1,0 +1,57 @@
+Sort an array A using Quick Sort.
+Change in the input array itself. So no need to return or print anything.
+************CODE*************
+int partition(int a[],int si,int ei)
+{
+    //selecting a no. from the array
+     int x=a[si],count=0,temp;
+    //counting up total numbers less or equal to x
+    for(int i=si+1;i<=ei;i++)
+    {
+        if(a[i]<=x)
+            count++;
+    }
+    //now we will put x to its correct position with help of count
+    //so we swap the x with element at (si+count) index
+     temp = a[si+count];
+     a[si+count]=x;//right pos. for x
+     a[si]=temp;//which was previous pos. of x
+     int c=si+count;
+    //now we will place all no. smaller then x before x and larger values after x
+    int i=si,j=ei;
+    
+    while(i<=c && j>=c)
+    {
+        while(a[i]<=x)
+            i++;
+        while(a[j]>x)
+            j--;
+        if(i<c && j>c)
+        {
+            temp=a[i];
+            a[i]=a[j];
+            a[j]=temp;
+            i++;
+            j--; 
+        }
+    }
+    //we will return the index of x to c
+    return c; 
+}
+
+void help(int input[],int si,int ei)//start and end index
+{
+    //base case
+    if(si>=ei)
+        return;
+    //calling for partition of the array,it will return the new position of x
+    int c=partition(input,si,ei);
+    //for sorting the part before c 
+    help(input,si,c-1);
+    //for sorting the part after c
+    help(input,c+1,ei);
+}
+
+void quickSort(int input[], int size) {
+  help(input,0,size-1);
+}
