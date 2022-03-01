@@ -1,0 +1,93 @@
+Given an integer n, using phone keypad find out all the possible strings that can be made using digits of input n.
+Return empty string for numbers 0 and 1.
+Note : 1. The order of strings are not important.
+2. Input and output has already been managed for you. You just have to populate the output array and return the count of elements populated in the output array.
+Input Format :
+Integer n
+Output Format :
+All possible strings in different lines
+Constraints :
+1 <= n <= 10^6
+Sample Input:
+23
+Sample Output:
+ad
+ae
+af
+bd
+be
+bf
+cd
+ce
+cf
+*******************************CODE***********************
+// do see its video first each time you revise
+#include <string>
+using namespace std;
+
+int keypad(int num, string output[]){
+    //base case
+    if(num == 0)
+    {
+        output[0]="";
+        return 1;
+    }
+    //recursion
+    int last_digit = num % 10;
+    int small_output_size = keypad(num/10,output);
+    //now making copies of output by recursion and concatinating the remaining number alphabets with them. 
+    
+    /*now we have two cases:
+      1. when the last digit of num is a digit other then 7 or 9.
+      2. when last digit is 7 or 9 */
+    string last_digit_string;
+    switch (last_digit)
+    {
+        case 2:
+            last_digit_string = "abc";
+            break;
+        case 3:
+            last_digit_string = "def";
+            break;
+        case 4:
+            last_digit_string = "ghi";
+            break;
+        case 5:
+            last_digit_string = "jkl";
+            break;
+        case 6:
+            last_digit_string = "mno";
+            break;
+        case 7:
+            last_digit_string = "pqrs";
+            break;
+        case 8:
+            last_digit_string = "tuv";
+            break;
+        case 9:
+            last_digit_string = "wxyz";
+            break;
+    }
+    //we observed that for a two digit num we dont have any part of output as a single alphabet...so we need to go in this way
+    //by making a extra string temp...rather then going in simple way as of "returning sub sequences" question
+    int ans_size = small_output_size*last_digit_string.size();
+    string temp[ans_size];
+    int k=0;
+    //when dry running the down code..think that recursion has done its work....do not start thinking as a compiler
+    //for eg in case of 23...think that we have all elemnts for 2 in the output...so now concatinate elements of 3 with them to form 
+    //the ans..and store them in temp...then copy whole temp in output.
+    for(int i=0; i<small_output_size; i++)
+    {
+        for(int j=0; j<last_digit_string.size(); j++)
+        {
+            temp[k] = output[i]  + last_digit_string[j];
+            k++;
+        }
+    }
+    for(int i=0; i<ans_size; i++)
+    {
+        output[i] = temp[i];
+    }
+    //we need to return total no. of sub sequences
+        return last_digit_string.size()*small_output_size;
+}
