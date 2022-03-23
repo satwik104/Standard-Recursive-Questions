@@ -103,3 +103,4 @@ or	x=1)	is	true and, the induction	hypothesis for case	x=k	is	true	must	imply th
 in	recursion	are	based	on	the	induction steps,	as in	recursion	also,	we	have	a	base	case	while	the	assumption	corresponds	to	the	recursive	call.
 
 	its a important concept in coding
+THIS REPO CONTAIN MANY IMP COCEPTS AND QUESTIONS
